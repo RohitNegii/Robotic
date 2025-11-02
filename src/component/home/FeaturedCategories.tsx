@@ -16,7 +16,7 @@ export default function FeaturedCategories() {
       id: 2,
       name: "Sensors",
       description: "Motion, proximity & vision sensors",
-      image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176",
+      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e",
       productCount: 234,
       icon: "📡",
     },
