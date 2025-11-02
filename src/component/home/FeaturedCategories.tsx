@@ -80,9 +80,9 @@ export default function FeaturedCategories() {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--contrast-dark)] to-transparent opacity-60" />
-                <div className="absolute top-4 right-4 text-4xl">
+                {/* <div className="absolute top-4 right-4 text-4xl">
                   {category.icon}
-                </div>
+                </div> */}
               </div>
 
               <div className="p-6">
