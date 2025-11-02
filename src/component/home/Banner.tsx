@@ -1,12 +1,24 @@
 "use client";
 
-import Slider from "react-slick";
+import React from "react";
+import Slider, { Settings } from "react-slick";
 import Link from "next/link";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
-export default function Banner() {
-  const settings = {
+
+interface BannerSlide {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  image: string;
+  ctaText: string;
+  ctaLink: string;
+  badge?: "NEW" | "SALE" | "FEATURED";
+  price: string;
+}
+
+export default function Banner(): JSX.Element {
+  const settings: Settings = {
     dots: true,
     infinite: true,
     speed: 500,
@@ -16,17 +28,17 @@ export default function Banner() {
     autoplaySpeed: 4000,
     arrows: true,
     pauseOnHover: true,
-    customPaging: (i) => (
+    customPaging: (i: number) => (
       <div className="w-3 h-3 bg-[var(--secondary-accent)] rounded-full opacity-50 hover:opacity-100 transition-opacity" />
     ),
-    appendDots: (dots) => (
+    appendDots: (dots: React.ReactNode[]) => (
       <div className="absolute bottom-4 w-full">
         <ul className="flex justify-center gap-2"> {dots} </ul>
       </div>
     ),
   };
 
-  const bannerData = [
+  const bannerData: BannerSlide[] = [
     {
       id: 1,
       title: "Advanced Robotic Arms",
@@ -68,10 +80,23 @@ export default function Banner() {
     },
   ];
 
+  const getBadgeClasses = (badge: BannerSlide["badge"]): string => {
+    switch (badge) {
+      case "NEW":
+        return "bg-[var(--buttons-highlight)]";
+      case "SALE":
+        return "bg-red-500";
+      case "FEATURED":
+        return "bg-[var(--secondary-accent)] text-[var(--text-primary)]";
+      default:
+        return "bg-[var(--secondary-accent)] text-[var(--text-primary)]";
+    }
+  };
+
   return (
     <div className="relative bg-[var(--background-light)] overflow-hidden w-full">
       <Slider {...settings} className="banner-slider">
-        {bannerData.map((slide) => (
+        {bannerData.map((slide: BannerSlide) => (
           <div key={slide.id} className="relative">
             <div className="relative h-[500px] md:h-[600px] bg-gradient-to-r from-[var(--primary-brand)] to-[var(--contrast-dark)]">
               {/* Background Image */}
@@ -87,13 +112,9 @@ export default function Banner() {
                   <div className="text-white space-y-6">
                     {slide.badge && (
                       <span
-                        className={`inline-block px-4 py-2 rounded-full text-sm font-bold ${
-                          slide.badge === "NEW"
-                            ? "bg-[var(--buttons-highlight)]"
-                            : slide.badge === "SALE"
-                            ? "bg-red-500"
-                            : "bg-[var(--secondary-accent)] text-[var(--text-primary)]"
-                        }`}
+                        className={`inline-block px-4 py-2 rounded-full text-sm font-bold ${getBadgeClasses(
+                          slide.badge
+                        )}`}
                       >
                         {slide.badge}
                       </span>
